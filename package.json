@@ -1,0 +1,50 @@
+{
+  "name": "paperback",
+  "version": "1.0.0",
+  "description": "Simple way to Author HTML pages.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dheerajkysetti/paperback.git"
+  },
+  "keywords": [
+    "Github",
+    "Pages",
+    "html"
+  ],
+  "author": "Dheeraj Kysetti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dheerajkysetti/paperback/issues"
+  },
+  "homepage": "https://github.com/dheerajkysetti/paperback#readme",
+  "dependencies": {
+    "@types/angular": "^1.6.6",
+    "angular": "1.6.1",
+    "bootstrap": "3.3.7",
+    "jquery": "3.1.1",
+    "lodash": "4.17.4",
+    "tinymce": "^4.5.3"
+  },
+  "devDependencies": {
+    "bluebird": "^3.4.7",
+    "browser-sync": "^2.18.8",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "file-loader": "^0.10.0",
+    "fs-extra": "^2.0.0",
+    "html-loader": "^0.4.4",
+    "prompt": "^1.0.0",
+    "raw-loader": "^0.5.1",
+    "shelljs": "^0.7.6",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.6",
+    "uglifyjs-webpack-plugin": "^0.2.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^2.2.1"
+  }
+}
