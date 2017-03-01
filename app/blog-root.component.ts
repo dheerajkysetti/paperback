@@ -1,13 +1,26 @@
 declare var require: any;
 
-require('./blog-root.component.css');
+var rootTemplate = require('./blog-root.component.html');
 
-angular.module('myBlog', []);
+angular.module('myBlog', ['ngRoute', 'BlogContent']);
 
-angular.module('myBlog').
-    component('blogRoot', {
-        template: `<dhe-header></dhe-header><dhe-content></dhe-content>`
+angular.module('myBlog')
+    .component('blogRoot', {
+        template: rootTemplate
+    })
+    .config(['$routeProvider', '$locationProvider', AppConfig]);
+
+function AppConfig($routeProvider: any, $locationProvider: any) {
+
+    $routeProvider.when('/home', {
+        template: '<dhe-posts-list></dhe-posts-list>'
     });
+    $locationProvider
+        .hashPrefix('!');
 
+}
+
+require('./blog-root.component.css');
 require('./header/dhe-header.component.ts');
+require('./posts-list/dhe-posts-list.component.ts');
 

@@ -4,10 +4,10 @@ var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var DheWebpackPlugin = require('./build_scripts/dhe-webpack-plugin.js');
 
 module.exports = {
-    entry: './app/blog-root.component.ts',
+    entry: {app:'./app/blog-root.component.ts',content:'./blog_content/blog_content_module.ts'},
     output: {
         path: 'dist/release',
-        filename: 'app.bundle.js'
+        filename: '[name].bundle.js'
     },
     resolve: {
         extensions: ['.ts', '.js']
@@ -15,22 +15,24 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|ts)$/, loader: 'ts-loader', options: {}
+                test: /\.(ts)$/, loader: 'ts-loader', options: {}
             },
             {
                 test: /\.(html)$/, loader: 'html-loader', options: {}
             },
             {
-                test: /\.(jpeg|jpg|png)$/, loader: 'url-loader', options: {}
+                test: /\.(jpeg|jpg|png)$/, loader: 'url-loader', options: {
+                    limit:1000
+                }
             },
             {
                 test: /\.css$/,
-                use: ["style-loader","raw-loader"]
+                use: ["style-loader","css-loader"]
             }
         ]
     },
     plugins: [
-        new UglifyJSPlugin({ mangle: false }),
+        // new UglifyJSPlugin({ mangle: false }),
         new DheWebpackPlugin()
     ]
 };
