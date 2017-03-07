@@ -1,0 +1,9 @@
+{
+    "post_1":{
+        "title":"first blog",
+        "content_html":"./post_1/content.html",
+        "visibility":"hidden",
+        "url":"first-blog",
+        "tags":[""]
+    }
+}

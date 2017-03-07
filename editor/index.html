@@ -1,0 +1,42 @@
+<html>
+    <head>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../node_modules/tinymce/tinymce.min.js"></script>
+    <script src="../node_modules/tinymce/jquery.tinymce.min.js"></script>
+ <script>
+ var editor = tinymce.init({ 
+     selector:'#tinymceEditor',
+     plugins:'',
+     toolbar:'',
+     height:400 });
+     editor.then(function(e){
+      var j=0;
+     });
+     </script>
+    </head>
+<body>
+<br/><br/>
+ <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-6">
+          <form  method="post">
+ <textarea id="tinymceEditor">Tiny mce editor!</textarea>
+ </form>
+      </div>
+       <div class="col-md-6"></div>
+  </div>
+
+ </div>
+ 
+ </body>
+</html>

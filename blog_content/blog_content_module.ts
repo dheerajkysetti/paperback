@@ -4,7 +4,7 @@ mod.service('blogDataService', [blogDataService]);
 
 
 function blogDataService() {
-
+    //require json loader
     var INST = this;
     INST.getPosts = function () {
         return {
