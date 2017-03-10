@@ -1,8 +1,9 @@
 (function () {
     var editorPromise = tinymce.init({
         selector: '#tinymceEditor',
-        plugins: '',
-        toolbar: '',
+        menubar: 'edit insert view format tools',
+        toolbar: 'image emoticons table ',
+        plugins: "image imagetools emoticons advlist table wordcount",
         height: 400
     });
     var richEditor = null;
@@ -16,57 +17,111 @@
     var uiState = {};
     uiState.richEditor = true;
     uiState.htmlEditor = true;
-    uiState.createBlog = {};
+    uiState.createBlog = {
+        title: '',
+        description: '',
+        url: '',
+        tags: '',
+        date: '',
+        visibility: 'visible'
+    };
+
+    var createBlogInput = {
+        title: { domid: '#inTitle' },
+        description: { domid: '#inDescription' },
+        url: { domid: '#inUrl' },
+        tags: { domid: '#inTags' },
+        visibility: { domid: '#inVisibility' },
+        date: { domid: '#inDate' }
+    };
+
+
+    //Set up one wayy binding from input to model
+    _.forEach(createBlogInput, function (val, key) {
+        $(val.domid).on('change', function () {
+            uiState.createBlog[key] = this.value;
+        });
+    });
+    //En of one way binding
+
+    function getInputValue(key) {
+        return $(createBlogInput[key].domid).val();
+    }
+
+    function setValue(key, val) {
+        $(createBlogInput[key].domid).val(val);
+        createBlog[key] = val;
+    }
 
     $.getJSON("../blog_content/blog_description.json",
         function (data) {
             blogDescription = data;
+            $('#blogsList').empty();
+            _.forEach(blogDescription.posts, function (val) {
+                $('#blogList').append('<option value="' + val.title + '">' + "" + '</option>');
+            });
         });
 
-
-    $('#richEditorBtn').on('click', function () {
-        uiState.richEditor = !uiState.richEditor;
-        if (uiState.richEditor) {
-            $(this).addClass('btn-primary').removeClass('btn-default');
+    var editorState = {
+        'rich nohtml': {
+            richEditorCss: 'col-md-12',
+            htmlEditorCss: 'hidden',
+            richEditorBtnCss: 'btn btn-primary btn-sm',
+            htmlEditorBtnCss: 'btn btn-default btn-sm'
+        },
+        'norich html': {
+            richEditorCss: 'hidden',
+            htmlEditorCss: 'col-md-12',
+            richEditorBtnCss: 'btn btn-default btn-sm',
+            htmlEditorBtnCss: 'btn btn-primary btn-sm'
+        },
+        'rich html': {
+            richEditorCss: 'col-md-6',
+            htmlEditorCss: 'col-md-6',
+            richEditorBtnCss: 'btn btn-primary btn-sm',
+            htmlEditorBtnCss: 'btn btn-primary btn-sm'
+        },
+        'norich nohtml': {
+            richEditorCss: 'hidden',
+            htmlEditorCss: 'hidden',
+            richEditorBtnCss: 'btn btn-default btn-sm',
+            htmlEditorBtnCss: 'btn btn-default btn-sm'
+        },
+        processEditorState: function (richState, htmlState) {
+            var stateName = richState + ' ' + htmlState;
             $('#richEditorCol')
-                .addClass('show')
-                .removeClass('hidden');
-        } else {
-            $(this).addClass('btn-default').removeClass('btn-primary');
-            $('#richEditorCol')
-                .addClass('hidden')
-                .removeClass('show');
-        }
-        setCol();
-    });
-    $('#rawHtmlBtn').on('click', function () {
-        uiState.htmlEditor = !uiState.htmlEditor;
-        if (uiState.htmlEditor) {
-            $(this).addClass('btn-primary').removeClass('btn-default');
-            $('#htmlEditorCol').addClass('show').removeClass('hidden');
-        } else {
-            $(this).addClass('btn-default').removeClass('btn-primary');
-            $('#htmlEditorCol').addClass('hidden').removeClass('show');
-        }
-        setCol();
-    });
+                .removeClass()
+                .addClass(editorState[stateName].richEditorCss);
 
-    var setCol = function () {
-        if (uiState.htmlEditor && uiState.richEditor) {
-            $('#htmlEditorCol').addClass('col-md-6');
-            $('#richEditorCol').addClass('col-md-6');
-        } else {
-            if (uiState.htmlEditor) {
-                $('#htmlEditorCol').removeClass('col-md-6').addClass('col-md-12');
-            } else if (uiState.richEditor) {
-                $('#richEditorCol').removeClass('col-md-6').addClass('col-md-12');
-            } else {
-                $('#richEditorCol').removeClass('col-md-6 col-md-12');
-                $('#htmlEditorCol').removeClass('col-md-6 col-md-12');
-            }
+            $('#htmlEditorCol')
+                .removeClass()
+                .addClass(editorState[stateName].htmlEditorCss);
+
+            $('#rawHtmlBtn')
+                .removeClass()
+                .addClass(editorState[stateName].htmlEditorBtnCss);
+
+            $('#richEditorBtn')
+                .removeClass()
+                .addClass(editorState[stateName].htmlEditorBtnCss);
         }
 
     };
+
+    $('#richEditorBtn').on('click', function () {
+        uiState.richEditor = !uiState.richEditor;
+        onEditorStateClick();
+    });
+
+    $('#rawHtmlBtn').on('click', function () {
+        uiState.htmlEditor = !uiState.htmlEditor;
+        onEditorStateClick();
+    });
+
+    function onEditorStateClick() {
+        editorState.processEditorState((uiState.richEditor ? 'rich' : 'norich'),
+            (uiState.htmlEditor ? 'html' : 'nohtml'));
+    }
 
 
     var updateHtml = function () {
@@ -99,61 +154,50 @@
     htmlEditor.on('keyup', _.debounce(updateRichEditor, 300));
 
 
-
-
     //Create Blog Entry
     $('#openBlog').on('click', function () { });
+    var urlInput = $('#inUrl');
+    $('#inTitle').on('keyup', function () {
+        urlInput.val(_.kebabCase(this.value));
+        urlInput.trigger("change");
+    });
 
 
     $('#createBlogModal').on('show.bs.modal', function (e) {
-        $('#blogsList').empty();
-        _.forEach(blogDescription.posts, function (val) {
-            $('#blogList').append('<option value="' + val.title + '">' + "" + '</option>');
-        });
-
-        var urlInput = $('#inUrl');
-        $('#inTitle').on('keyup', function () {
-            urlInput.val(_.kebabCase(this.value));
-        });
-
 
     });
 
     $('#openBlog').on('click', function () {
-        var url = $('#inUrl').val();
+        var title = $('#inTitle').val();
         var ret = _.find(blogDescription, function (blog) {
-            return blog.url === url;
+            return blog.title === title;
         });
         if (ret === undefined) {
             createBlog();
-        } else {
-            $('#inDescription').val(ret.description);
-            $('#inUrl').val(ret.url);
-            $('#inTags').val(ret.tags);
+        }else{
+            fetchTemplate(ret.htmlSrcUrl);
         }
-
     });
 
 
     function createBlog() {
-        var titleInput = $('#inTitle');
-        var descriptionInput = $('#inDescription');
-        var urlInput = $('#inUrl');
-        var tagsInput = $('#inTags');
-
-        uiState.createBlog = {
-            title: titleInput.val(),
-            description: descriptionInput.val(),
-            url: urlInput.val(),
-            tags: tagsInput.val()
-        };
         $.post({
             dataType: "json",
             contentType: "application/json",
             url: "./createblog",
             data: JSON.stringify(uiState.createBlog)
+        }).done(function (data) {
+            fetchTemplate(data.path);
         });
     }
+
+    function fetchTemplate(path) {
+        $.get(path).done(function (templateData) {
+            richEditor.setContent(templateData);
+            updateHtml();
+        });
+    }
+
 
 
 

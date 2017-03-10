@@ -1,14 +1,14 @@
 {
-    "author": "",
-
-    "posts": [
-        {
-            "title": "first blog",
-            "description": "",
-            "content_html": "./.html",
-            "visibility": "hidden",
-            "url": "first-blog",
-            "tags":""
-        }
-    ]
+  "author": "",
+  "blog_title": "",
+  "posts": [
+    {
+      "title": "testing",
+      "description": "descr",
+      "url": "dhe/testing.html",
+      "tags": "t1 t2",
+      "date": "2017-03-11",
+      "visibility": "visible"
+    }
+  ]
 }
