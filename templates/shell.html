@@ -1,7 +1,20 @@
-<html ng-app="myBlog">
+<html>
 
 <head>
     <base href="/">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="John Doe">
+
+    <meta name="keywords" content="KEYWORD1 KEYWORD2 KEYPHRASE1 etc about 30 to 40 unique words">
+
+    <meta name="description" content="An accurate, keyword-rich description about 150 characters">
+    <title></title>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
@@ -16,19 +29,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
-
 </head>
 
 
 <body>
+    <div class="dhe-header">
+        <div class="dhe-title">WEBPAGE_TITLE</div>
+        <nav class="dhe-nav">
+            <a href="home.html" class="dhe-nav-link">HOME</a>
+            <a href="about.html" class="dhe-nav-link">ABOUT ME</a>
+            <a href="contact.html" class="dhe-nav-link">CONTACT ME</a>
+        </nav>
+    </div>
+    {{{HTML_CONTENT}}}
 
-    <blog-root></blog-root>
-
-
-    <script src="./app.bundle.js"></script>
-    <script src="./content.bundle.js"></script>
+    </script src="./blog_description.js">
+    </script>
 </body>
 
 </html>

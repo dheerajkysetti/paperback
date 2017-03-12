@@ -22,33 +22,21 @@
   },
   "homepage": "https://github.com/dheerajkysetti/paperback#readme",
   "dependencies": {
-    "@types/angular": "^1.6.6",
-    "angular": "1.6.1",
     "bootstrap": "3.3.7",
     "jquery": "3.1.1",
     "lodash": "4.17.4",
-    "tinymce": "^4.5.3"
+    "handlebars": "4.0.6"
   },
   "devDependencies": {
     "bluebird": "^3.4.7",
     "browser-sync": "^2.18.8",
+    "chokidar": "^1.6.1",
     "codemirror": "^5.24.2",
-    "css-loader": "^0.26.1",
-    "expressjs": "^1.0.1",
-    "extract-text-webpack-plugin": "^2.0.0-rc.3",
-    "file-loader": "^0.10.0",
+    "express": "4.15.2",
     "fs-extra": "^2.0.0",
-    "html-loader": "^0.4.4",
     "http-server": "^0.9.0",
-    "json-loader": "^0.5.4",
     "prompt": "^1.0.0",
-    "raw-loader": "^0.5.1",
     "shelljs": "^0.7.6",
-    "style-loader": "^0.13.1",
-    "ts-loader": "^2.0.0",
-    "typescript": "^2.1.6",
-    "uglifyjs-webpack-plugin": "^0.2.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^2.2.1"
+    "tinymce": "^4.5.3"
   }
 }

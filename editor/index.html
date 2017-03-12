@@ -6,13 +6,9 @@
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <!--<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">-->
 
-    <!-- Latest compiled and minified JavaScript -->
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="../node_modules/lodash/lodash.min.js"></script>
@@ -25,35 +21,7 @@
     <script src="../node_modules/codemirror/addon/fold/xml-fold.js"></script>
     <script src="../node_modules/codemirror/addon/edit/matchtags.js"></script>
     <script src="../node_modules/codemirror/mode/xml/xml.js"></script>
-    <style>
-        .dhe-header {
-            width: 100%;
-            height: 70px;
-            text-align: left;
-            padding-left: 20px;
-            color: #fff;
-            line-height: 70px;
-            vertical-align: middle;
-            background-color: #3F51B5;
-            margin-bottom: 10px;
-        }
-
-
-        .dhe-heading {
-            font-size: 20px;
-        }
-
-
-        .dhe-btns {
-            width: 400px;
-            margin: 0 auto;
-            margin-bottom: 10px;
-        }
-
-        #htmlContent {
-            min-width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="./editor.css">
 </head>
 
 <body>
@@ -65,19 +33,26 @@
 
         <div class="dhe-btns">
             <div class="btn-toolbar">
-                 <div class="btn-group">
-                      <button type="button" class="btn btn-primary" id="refreshBtn"
-                      data-toggle="tooltip" title="Refresh Editor Views"
-                      >
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" id="createBlogBtn" data-toggle="modal" data-target="#createBlogModal"
+                        data-toggle="tooltip" title="Create or Edit Blog">
+                           <span class="glyphicon glyphicon-play"></span>
+                           Create/Edit Blog
+                      </button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" id="refreshBtn" data-toggle="tooltip" title="Refresh Editor Views">
                            <span class="glyphicon glyphicon-refresh"></span>
                       </button>
-                 </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary" id="richEditorBtn">RICH EDITOR</button>
-                    <button type="button" class="btn btn-primary" id="rawHtmlBtn">RAW HTML</button>
                 </div>
-                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary" id="previewBtn">PREVIEW BLOG</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" id="richEditorBtn">Rich Editor</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="rawHtmlBtn">Raw Html</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" id="previewBtn">Preview
+                        <span class="glyphicon glyphicon-new-window"></span> 
+                    </button>
                 </div>
             </div>
         </div>
@@ -94,99 +69,40 @@
         </div>
     </div>
 
-    <script>
-        (function () {
-            var editorPromise = tinymce.init({
-                selector: '#tinymceEditor',
-                plugins: '',
-                toolbar: '',
-                height: 400
-            });
-            var richEditor = null;
-            var htmlTextArea = $('#htmlContent');
-            var htmlEditor = CodeMirror.fromTextArea(htmlTextArea[0], {
-                lineNumbers: true,
-                matchTags: { bothTags: true },
-                mode: "xml"
-            });
-            var uiState = {};
-            uiState.richEditor = true;
-            uiState.htmlEditor = true;
-
-            $('#richEditorBtn').on('click', function () {
-                uiState.richEditor = !uiState.richEditor;
-                if (uiState.richEditor) {
-                    $(this).addClass('btn-primary').removeClass('btn-default');
-                    $('#richEditorCol')
-                    .addClass('show')
-                    .removeClass('hidden');
-                } else {
-                    $(this).addClass('btn-default').removeClass('btn-primary');
-                    $('#richEditorCol')
-                    .addClass('hidden')
-                    .removeClass('show');
-                }
-                setCol();
-            });
-            $('#rawHtmlBtn').on('click', function () {
-                uiState.htmlEditor = !uiState.htmlEditor;
-                if (uiState.htmlEditor) {
-                    $(this).addClass('btn-primary').removeClass('btn-default');
-                    $('#htmlEditorCol').addClass('show').removeClass('hidden');
-                } else {
-                    $(this).addClass('btn-default').removeClass('btn-primary');
-                    $('#htmlEditorCol').addClass('hidden').removeClass('show');
-                }
-                setCol();
-            });
-
-            var setCol = function(){
-                  if (uiState.htmlEditor && uiState.richEditor) {
-                      $('#htmlEditorCol').addClass('col-md-6');
-                      $('#richEditorCol').addClass('col-md-6');
-                  }else {
-                      if(uiState.htmlEditor){
-                        $('#htmlEditorCol').removeClass('col-md-6').addClass('col-md-12');
-                      }else if(uiState.richEditor){
-                        $('#richEditorCol').removeClass('col-md-6').addClass('col-md-12');
-                      }else{
-                          $('#richEditorCol').removeClass('col-md-6 col-md-12');
-                          $('#htmlEditorCol').removeClass('col-md-6 col-md-12');
-                      }
-                  }
-
-            };
 
 
-            var updateHtml = function () {
-                if (!richEditor || !htmlEditor) {
-                    return;
-                }
-                htmlEditor.setValue(richEditor.getContent());
-            };
 
-            var updateRichEditor = function () {
-                 if (!richEditor || !htmlEditor) {
-                    return;
-                }
-                richEditor.setContent(htmlEditor.getValue());
-            };
+    <!-- Create Blog Modal -->
+    <div id="createBlogModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-            $('#refreshBtn').on('click',function(){
-                updateHtml();
-                updateRichEditor();
-            });
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create/Edit an Article</h4>
+                </div>
+                <div class="modal-body">
 
-            editorPromise.then(function (e) {
-                richEditor = e[0];
-                richEditor.on('keyup', _.debounce(updateHtml, 300));
-                updateHtml();
-            });
+                    <input id="inTitle" class="dhe-modal-input" type="text" list="blogList" placeholder="Title">
+                    <datalist id="blogList">
 
-            htmlEditor.on('keyup', _.debounce(updateRichEditor, 300));
-        })();
-    </script>
+                    </datalist>
+                    <input id="inDescription" class="dhe-modal-input" type="text" placeholder="description">
+                    <input id="inUrl" class="dhe-modal-input" type="text" placeholder="blog URL">
+                    <input id="inTags" class="dhe-modal-input" type="text" placeholder="tags">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="openBlog">Open Article</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./editor.js"></script>
 </body>
 
 </html>
