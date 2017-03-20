@@ -5,12 +5,35 @@ const path = require('path');
 const fs = require('bluebird').promisifyAll(require('fs-extra'));
 const _ = require('lodash');
 const hbs = require('handlebars');
-
+const chokidar = require('chokidar');
+const glob = require('glob');
 
 var articleTemplate = hbs.compile(fs.readFileSync(path.join(__dirname, '../templates', 'article-shell.html'), 'utf-8'));
+const imageList = [];
+const projectRoot = path.join(__dirname,'../');
+
+// var watcher = chokidar.watch('blog_content/**/*.png', {
+//   ignored: /(^|[\/\\])\../,
+//   persistent: true
+// });
+
+// watcher.on('add', (path) => {
+
+// });
+// watcher.on('remove', (path) => {
+
+// });
+
+glob(path.join(__dirname, '../blog_content') + '/**/*.png', {}, function (er, files) {
+    files.forEach((f) => imageList.push({title:path.basename(f),value:'/'+f.replace(projectRoot,'')}));
+    console.log(files);
+    console.log(projectRoot);
+});
+
 
 app.use(express.static(path.join(__dirname, '..')));
 app.use(bodyParser.json());
+
 
 app.post('/editor/createblog', function (req, res) {
     var data = req.body;
@@ -67,6 +90,9 @@ app.post('/editor/compile', function (req, res) {
     res.send({ status: 'ok' });
 });
 
+app.get('/editor/image-list', function (req, res) {
+    res.send(imageList);
+});
 
 app.listen(3000, function () {
     console.log('App Ready. http://localhost:3000/editor/index.html');

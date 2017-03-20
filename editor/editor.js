@@ -3,8 +3,10 @@
         selector: '#tinymceEditor',
         menubar: 'edit insert view format tools',
         toolbar: 'image emoticons table ',
-        plugins: "image imagetools emoticons advlist table wordcount",
-        height: 400
+        plugins: 'image imagetools emoticons advlist table wordcount',
+        height: 400,
+        image_caption: true,
+        image_list:'./image-list'
     });
     var richEditor = null;
     var htmlTextArea = $('#htmlContent');
@@ -103,7 +105,7 @@
 
             $('#richEditorBtn')
                 .removeClass()
-                .addClass(editorState[stateName].htmlEditorBtnCss);
+                .addClass(editorState[stateName].richEditorBtnCss);
         }
 
     };
@@ -162,6 +164,17 @@
         urlInput.trigger("change");
     });
 
+    $('#inTitle').on('change', function () {
+        var val = $(this).val();
+        var ret = _.find(blogDescription.posts, function (blog) {
+            return blog.title === val;
+        });
+        setValue('description', ret.description);
+        setValue('url', ret.url);
+        setValue('tags', ret.tags);
+        setValue('date', ret.date);
+        setValue('visibility', ret.visibility);
+    });
 
     $('#createBlogModal').on('show.bs.modal', function (e) {
 
@@ -169,12 +182,12 @@
 
     $('#openBlog').on('click', function () {
         var title = $('#inTitle').val();
-        var ret = _.find(blogDescription, function (blog) {
+        var ret = _.find(blogDescription.posts, function (blog) {
             return blog.title === title;
         });
         if (ret === undefined) {
             createBlog();
-        }else{
+        } else {
             fetchTemplate(ret.htmlSrcUrl);
         }
     });

@@ -1,22 +1,59 @@
+
+
+@media only screen and (max-width: 600px) {
 .dhe-header {
             width: 100%;
-            height: 50px;
+            height: 200px;
             text-align: left;
             padding-left: 20px;
-            color: #fff;
-            line-height: 50px;
-            vertical-align: middle;
-            background-color: #3F51B5;
+            color: #3F51B5;
+            text-align: center;
+            background-color: whitesmoke;
             margin-bottom: 10px;
         }
 .dhe-heading {
             font-size: 20px;
+            display:block;
         }
 .dhe-btns {
-            width: 500px;
-            margin: 0 auto;
+           display:block;
+        }
+.dhe-header .btn-group{
+display:block;
+position:relative;
+float:none !important;
+padding:5px;
+}
+
+.dhe-header .btn-group button{
+float:none !important;
+}
+
+}
+
+
+@media only screen and (min-width: 600px) {
+.dhe-header {
+            width: 100%;
+            height: 30px;
+            text-align: left;
+            padding-left: 20px;
+            color: #3F51B5;
+            line-height: 30px;
+            vertical-align: middle;
+            background-color: whitesmoke;
             margin-bottom: 10px;
         }
+.dhe-heading {
+            font-size: 20px;
+            display:inline-block;
+             vertical-align: middle;
+        }
+.dhe-btns {
+           display:inline-block;
+           vertical-align: middle;
+        }
+}
 #htmlContent {
             min-width: 100%;
         }
@@ -25,4 +62,12 @@
     padding:8px;
     margin:8px;
     display:block;
+}
+
+.dhe-modal-input input,select{
+    padding:4px;
+}
+
+.dhe-modal-input label{
+    width:100px;
 }

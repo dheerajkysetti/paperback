@@ -27,12 +27,8 @@
 <body>
 
     <div class="dhe-header">
-        <div class="dhe-heading">Editor</div>
-    </div>
-    <div class="container-fluid">
-
-        <div class="dhe-btns">
-            <div class="btn-toolbar">
+            <div class="dhe-heading">Blog Editor</div>
+            <div class="btn-toolbar dhe-btns">
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary btn-sm" id="createBlogBtn" data-toggle="modal" data-target="#createBlogModal"
                         data-toggle="tooltip" title="Create or Edit Blog">
@@ -55,7 +51,11 @@
                     </button>
                 </div>
             </div>
-        </div>
+       
+    </div>
+    <div class="container-fluid">
+
+
 
         <div class="row">
             <div class="col-md-6" id="richEditorCol">
@@ -84,19 +84,36 @@
                 </div>
                 <div class="modal-body">
 
-                    <input id="inTitle" class="dhe-modal-input" type="text" list="blogList" placeholder="Title">
-                    <datalist id="blogList">
+                    <div class="dhe-modal-input">
+                        <label>Title</label>
+                        <input id="inTitle" type="text" list="blogList" placeholder="Title">
+                        <datalist id="blogList">
 
-                    </datalist>
-                    <input id="inDescription" class="dhe-modal-input" type="text" placeholder="description">
-                    <input id="inUrl" class="dhe-modal-input" type="text" placeholder="blog URL">
-                    <input id="inTags" class="dhe-modal-input" type="text" placeholder="tags">
-                    <select id="inVisibility" class="dhe-modal-input">
+                        </datalist>
+
+                    </div>
+
+                    <div class="dhe-modal-input">
+                        <label>Description</label>
+                        <input id="inDescription" type="text" placeholder="description"> </div>
+                    <div class="dhe-modal-input">
+                        <label>URL</label>
+                        <input id="inUrl" type="text" placeholder="blog URL"> </div>
+                    <div class="dhe-modal-input">
+                        <label>Tags</label>
+                        <input id="inTags" type="text" placeholder="tags"> </div>
+                    <div class="dhe-modal-input">
+                        <label>Blog Access</label>
+                        <select id="inVisibility">
                         <option value="visible">Blog is shown on main page</option>
                         <option value="hidden">Access Direct link</option>
                         <option value="ignore">Not public</option>
-                    </select>
-                    <input id="inDate"class="dhe-modal-input" type="date" placeholder="Date">
+                    </select></div>
+                    <div class="dhe-modal-input">
+                        <label>Date</label>
+                        <input id="inDate" type="date" placeholder="Date">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="openBlog">Open Article</button>
