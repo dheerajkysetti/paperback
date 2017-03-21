@@ -1,10 +1,22 @@
+
+/*
+body{
+    background-color:#17202a;
+    background-image: url("/images/3px_tile.png");
+}*/
+
 .dhe-header{
     height:200px;
-    width:100%;
     background-color:#17202a;
-    background-image: url("./3px_tile.png");
+    background-image: url("/images/3px_tile.png");
     text-align:center;
     position: relative;
+    color:#fff;
+    padding-top:20px;
+}
+
+.dhe-header h1{
+    color:#fff;
 }
 
 .dhe-header .dhe-nav{
@@ -31,6 +43,13 @@ height:50px;
     background-color: rgba(255,255,255,0.2);
 }
 
+.dhe-info-section{
+    padding:20px;
+    min-height:250px;
+    color:#fff;
+    background-color:#17202a;
+}
+
 .sample-colors{
     background-color: #1A4E97;
 }
@@ -43,4 +62,16 @@ height:50px;
 
 .dhe-header .dhe-nav-button{
     line-height: 70px;
+}
+
+
+/*Blog list styling*/
+.dhe-card{
+   max-width: 300px;
+   height:200px;
+   box-shadow:0 1px 3px 0 rgba(0,0,0,.2),0 1px 0 rgba(0,0,0,.14), 0 2px 1px 1px -1px rgba(0,0,0,.12);
+   padding:8px;
+   margin:8px;
+   position:relative;
+
 }

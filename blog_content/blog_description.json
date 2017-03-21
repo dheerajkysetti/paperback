@@ -1,14 +1,17 @@
 {
-  "author": "",
-  "blog_title": "",
+  "author": "Dheeraj",
+  "blogTitle": "Paperback",
+  "tags": "github pages node handlebars blog authoring",
+  "blogDescription": "A simple blog Authoring tool",
   "posts": [
     {
-      "title": "testing",
-      "description": "descr",
-      "url": "dhe/testing.html",
-      "tags": "t1 t2",
-      "date": "2017-03-11",
-      "visibility": "visible"
+      "title": "a new blog",
+      "description": "a new first blog",
+      "url": "a-new-blog.html",
+      "tags": "testing paperback first blog",
+      "date": "2017-03-21",
+      "visibility": "visible",
+      "htmlSrcUrl": "/blog_content/a-new-blog.html"
     }
   ]
 }

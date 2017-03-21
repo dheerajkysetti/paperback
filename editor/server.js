@@ -24,10 +24,9 @@ const projectRoot = path.join(__dirname,'../');
 
 // });
 
-glob(path.join(__dirname, '../blog_content') + '/**/*.png', {}, function (er, files) {
+glob(path.join(__dirname, '../blog_content') + '/**/*{png,jpg,jpeg,gif}', {}, function (er, files) {
     files.forEach((f) => imageList.push({title:path.basename(f),value:'/'+f.replace(projectRoot,'')}));
-    console.log(files);
-    console.log(projectRoot);
+
 });
 
 
@@ -74,10 +73,12 @@ app.post('/editor/createblog', function (req, res) {
     }).then(function () {
         return fs.writeJsonAsync(path.join(__dirname, '../blog_content/blog_description.json'), blogDescription);
     }).then(function () {
-
         res.send({ status: 'ok', path: data.htmlSrcUrl });
+        return;
     }).catch(function (er) {
-        res.sendStatus(500).send({ status: 'failure' });
+        console.log(er);
+        res.status(500).send({ status: 'failure' });
+        return;
     });
 
 });
@@ -95,5 +96,5 @@ app.get('/editor/image-list', function (req, res) {
 });
 
 app.listen(3000, function () {
-    console.log('App Ready. http://localhost:3000/editor/index.html');
+    console.log('App Ready on http://localhost:3000/editor/index.html');
 });

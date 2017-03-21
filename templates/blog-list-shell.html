@@ -1,0 +1,55 @@
+<div class="dhe-list-container">
+    <div class="text-center">
+        <nav>
+            <ul class="pagination">
+                {{#if hasPrevious}}
+                <li>
+                    <a href=""><span> &laquo; </span></a>
+                </li>
+                {{/if}} {{#each postsPages}}
+                <li class="">
+                    <a href="{{url}}">{{position}}</a>
+                </li>
+                {{/each}} {{#if hasNext}}
+                <li>
+                    <a href=""><span> &raquo; </span></a>
+                </li>
+                {{/if}}
+            </ul>
+        </nav>
+    </div>
+    {{#each posts}}
+    <div class="dhe-card">
+        <a href="{{imageUrl}}" class="thumbnail"></a>
+        <h2>{{title}}</h2>
+        <div>
+            {{#each tagsArray}}
+            <span class="label label-default">{{tag}}</span> {{/each}}
+        </div>
+        <h3>{{description}}</h3>
+
+    </div>
+    {{/each}}
+
+
+    <div class="text-center">
+        <nav>
+            <ul class="pagination">
+                {{#if hasPrevious}}
+                <li>
+                    <a href=""><span> &laquo; </span></a>
+                </li>
+                {{/if}} {{#each postsPages}}
+                <li class="">
+                    <a href="{{url}}">{{position}}</a>
+                </li>
+                {{/each}} {{#if hasNext}}
+                <li>
+                    <a href=""><span> &raquo; </span></a>
+                </li>
+                {{/if}}
+            </ul>
+        </nav>
+    </div>
+
+</div>

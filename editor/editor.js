@@ -6,7 +6,7 @@
         plugins: 'image imagetools emoticons advlist table wordcount',
         height: 400,
         image_caption: true,
-        image_list:'./image-list'
+        image_list: './image-list'
     });
     var richEditor = null;
     var htmlTextArea = $('#htmlContent');
@@ -169,6 +169,9 @@
         var ret = _.find(blogDescription.posts, function (blog) {
             return blog.title === val;
         });
+        if (ret == undefined) {
+            return;
+        }
         setValue('description', ret.description);
         setValue('url', ret.url);
         setValue('tags', ret.tags);
