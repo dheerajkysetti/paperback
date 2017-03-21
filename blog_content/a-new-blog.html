@@ -1,42 +1,42 @@
-<html>
-
-<head>
-    <base href="/">
-
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="author" content="">
-
-    <meta name="keywords" content="testing paperback first blog">
-
-    <meta name="description" content="a new first blog">
-    <title>a new blog</title>
-
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-
-</head>
-
-
-<body>
-
-
-    </script src="./blog_description.js">
-    </script>
-</body>
-
-</html>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="dhe-header">
+<div class="dhe-heading">Blog Editor</div>
+<div class="btn-toolbar dhe-btns">
+<div class="btn-group"><button id="createBlogBtn" class="btn btn-primary btn-sm" title="Create or Edit Blog" type="button" data-toggle="modal" data-target="#createBlogModal"> Create/Edit Blog </button></div>
+<div class="btn-group">&nbsp;</div>
+<div class="btn-group"><button id="richEditorBtn" class="btn btn-primary btn-sm" type="button">Rich Editor</button> <button id="rawHtmlBtn" class="btn btn-primary btn-sm" type="button">Raw Html</button></div>
+<div class="btn-group"><button id="previewBtn" class="btn btn-primary btn-sm" type="button">Preview </button></div>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div id="richEditorCol" class="col-md-6"><form method="post"><textarea id="tinymceEditor">Tiny mce editor!</textarea></form></div>
+<div id="htmlEditorCol" class="col-md-6">&nbsp;</div>
+</div>
+</div>
+<!-- Create Blog Modal -->
+<div id="createBlogModal" class="modal fade">
+<div class="modal-dialog"><!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Create/Edit an Article</h4>
+</div>
+<div class="modal-body">
+<div class="dhe-modal-input"><label>Title</label> <input id="inTitle" list="blogList" type="text" placeholder="Title" />
+<datalist id="blogList"></datalist>
+</div>
+<div class="dhe-modal-input"><label>Description</label> <input id="inDescription" type="text" placeholder="description" /></div>
+<div class="dhe-modal-input"><label>URL</label> <input id="inUrl" type="text" placeholder="blog URL" /></div>
+<div class="dhe-modal-input"><label>Tags</label> <input id="inTags" type="text" placeholder="tags" /></div>
+<div class="dhe-modal-input"><label>Blog Access</label><select id="inVisibility">
+<option value="visible">Blog is shown on main page</option>
+<option value="hidden">Access Direct link</option>
+<option value="ignore">Not public</option>
+</select></div>
+<div class="dhe-modal-input"><label>Date</label> <input id="inDate" type="date" placeholder="Date" /></div>
+</div>
+<div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Close</button> <button id="openBlog" class="btn btn-primary" type="button" data-dismiss="modal">Open Article</button></div>
+</div>
+</div>
+</div>

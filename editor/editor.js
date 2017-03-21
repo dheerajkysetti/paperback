@@ -4,6 +4,7 @@
         menubar: 'edit insert view format tools',
         toolbar: 'image emoticons table ',
         plugins: 'image imagetools emoticons advlist table wordcount',
+        imagetools_cors_hosts:['localhost:3000'],
         height: 400,
         image_caption: true,
         image_list: './image-list'
@@ -50,10 +51,6 @@
         return $(createBlogInput[key].domid).val();
     }
 
-    function setValue(key, val) {
-        $(createBlogInput[key].domid).val(val);
-        createBlog[key] = val;
-    }
 
     $.getJSON("../blog_content/blog_description.json",
         function (data) {
@@ -68,26 +65,26 @@
         'rich nohtml': {
             richEditorCss: 'col-md-12',
             htmlEditorCss: 'hidden',
-            richEditorBtnCss: 'btn btn-primary btn-sm',
-            htmlEditorBtnCss: 'btn btn-default btn-sm'
+            richEditorBtnCss: 'dhe-btn active',
+            htmlEditorBtnCss: 'dhe-btn'
         },
         'norich html': {
             richEditorCss: 'hidden',
             htmlEditorCss: 'col-md-12',
-            richEditorBtnCss: 'btn btn-default btn-sm',
-            htmlEditorBtnCss: 'btn btn-primary btn-sm'
+            richEditorBtnCss: 'dhe-btn',
+            htmlEditorBtnCss: 'dhe-btn active'
         },
         'rich html': {
             richEditorCss: 'col-md-6',
             htmlEditorCss: 'col-md-6',
-            richEditorBtnCss: 'btn btn-primary btn-sm',
-            htmlEditorBtnCss: 'btn btn-primary btn-sm'
+            richEditorBtnCss: 'dhe-btn active',
+            htmlEditorBtnCss: 'dhe-btn active'
         },
         'norich nohtml': {
             richEditorCss: 'hidden',
             htmlEditorCss: 'hidden',
-            richEditorBtnCss: 'btn btn-default btn-sm',
-            htmlEditorBtnCss: 'btn btn-default btn-sm'
+            richEditorBtnCss: 'dhe-btn',
+            htmlEditorBtnCss: 'dhe-btn'
         },
         processEditorState: function (richState, htmlState) {
             var stateName = richState + ' ' + htmlState;
@@ -126,28 +123,46 @@
     }
 
 
-    var updateHtml = function () {
+    function updateHtml() {
         if (!richEditor || !htmlEditor) {
             return;
         }
         htmlEditor.setValue(richEditor.getContent());
     };
 
-    var updateRichEditor = function () {
+    function updateRichEditor() {
         if (!richEditor || !htmlEditor) {
             return;
         }
         richEditor.setContent(htmlEditor.getValue());
     };
 
+    function saveTemplate() {
+        if (!uiState.createBlog.htmlSrcUrl) {
+            return;
+        }
+        $.post({
+            dataType: "json",
+            contentType: "application/json",
+            url: "./savetemplate",
+            data: JSON.stringify({ html: richEditor.getContent(), htmlSrcUrl: uiState.createBlog.htmlSrcUrl })
+        }).done(function (data) {
+        });
+    }
+    var saveTemplateDebounce = _.debounce(saveTemplate, 1000);
+
     $('#refreshBtn').on('click', function () {
         updateHtml();
         updateRichEditor();
+        saveTemplate();
     });
+    const debounceUpdate = _.debounce(() => { updateHtml(); saveTemplateDebounce(); }, 300);
 
     editorPromise.then(function (e) {
         richEditor = e[0];
-        richEditor.on('keyup', _.debounce(updateHtml, 300));
+        richEditor.on('keyup', debounceUpdate);
+        richEditor.on('contextmenu', debounceUpdate);
+        richEditor.on('mouseleave', debounceUpdate);
         richEditor.dom.loadCSS('../node_modules/bootstrap/dist/css/bootstrap.min.css');
         tinymce.ScriptLoader.load('../node_modules/bootstrap/dist/js/bootstrap.min.js');
         updateHtml();
@@ -164,7 +179,7 @@
         urlInput.trigger("change");
     });
 
-    $('#inTitle').on('change', function () {
+    $('#inTitle').on('change blur click', function () {
         var val = $(this).val();
         var ret = _.find(blogDescription.posts, function (blog) {
             return blog.title === val;
@@ -172,11 +187,12 @@
         if (ret == undefined) {
             return;
         }
-        setValue('description', ret.description);
-        setValue('url', ret.url);
-        setValue('tags', ret.tags);
-        setValue('date', ret.date);
-        setValue('visibility', ret.visibility);
+        $(createBlogInput['description'].domid).val(ret.description);
+        $(createBlogInput['url'].domid).val(ret.url);
+        $(createBlogInput['tags'].domid).val(ret.tags);
+        $(createBlogInput['date'].domid).val(ret.date);
+        $(createBlogInput['visibility'].domid).val(ret.visibility);
+
     });
 
     $('#createBlogModal').on('show.bs.modal', function (e) {
@@ -191,6 +207,7 @@
         if (ret === undefined) {
             createBlog();
         } else {
+            uiState.createBlog = ret;
             fetchTemplate(ret.htmlSrcUrl);
         }
     });
@@ -203,14 +220,16 @@
             url: "./createblog",
             data: JSON.stringify(uiState.createBlog)
         }).done(function (data) {
-            fetchTemplate(data.path);
+            uiState.createBlog.htmlSrcUrl = data.htmlSrcUrl;
+            fetchTemplate(data.htmlSrcUrl);
         });
     }
 
-    function fetchTemplate(path) {
-        $.get(path).done(function (templateData) {
+    function fetchTemplate(htmlSrcUrl) {
+        $.get(htmlSrcUrl).done(function (templateData) {
             richEditor.setContent(templateData);
             updateHtml();
+            updateRichEditor();
         });
     }
 

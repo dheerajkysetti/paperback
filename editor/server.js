@@ -10,7 +10,7 @@ const glob = require('glob');
 
 var articleTemplate = hbs.compile(fs.readFileSync(path.join(__dirname, '../templates', 'article-shell.html'), 'utf-8'));
 const imageList = [];
-const projectRoot = path.join(__dirname,'../');
+const projectRoot = path.join(__dirname, '../');
 
 // var watcher = chokidar.watch('blog_content/**/*.png', {
 //   ignored: /(^|[\/\\])\../,
@@ -25,8 +25,7 @@ const projectRoot = path.join(__dirname,'../');
 // });
 
 glob(path.join(__dirname, '../blog_content') + '/**/*{png,jpg,jpeg,gif}', {}, function (er, files) {
-    files.forEach((f) => imageList.push({title:path.basename(f),value:'/'+f.replace(projectRoot,'')}));
-
+    files.forEach((f) => imageList.push({ title: path.basename(f), value: '/' + f.replace(projectRoot, '') }));
 });
 
 
@@ -73,7 +72,7 @@ app.post('/editor/createblog', function (req, res) {
     }).then(function () {
         return fs.writeJsonAsync(path.join(__dirname, '../blog_content/blog_description.json'), blogDescription);
     }).then(function () {
-        res.send({ status: 'ok', path: data.htmlSrcUrl });
+        res.send({ status: 'ok', htmlSrcUrl: data.htmlSrcUrl });
         return;
     }).catch(function (er) {
         console.log(er);
@@ -84,6 +83,10 @@ app.post('/editor/createblog', function (req, res) {
 });
 
 app.post('/editor/savetemplate', function (req, res) {
+    var data = req.body;
+    fs.writeFileAsync(path.join(projectRoot, data.htmlSrcUrl), data.html)
+        .then(() => res.send({ status: 'ok' }))
+        .catch((er) => { console.log(er); res.status(500).send({ status: 'failure' }); });
 
 });
 

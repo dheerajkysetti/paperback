@@ -1,59 +1,57 @@
 
-
-@media only screen and (max-width: 600px) {
 .dhe-header {
             width: 100%;
-            height: 200px;
+            height: 60px;
             text-align: left;
             padding-left: 20px;
-            color: #3F51B5;
-            text-align: center;
-            background-color: whitesmoke;
-            margin-bottom: 10px;
-        }
-.dhe-heading {
-            font-size: 20px;
-            display:block;
-        }
-.dhe-btns {
-           display:block;
-        }
-.dhe-header .btn-group{
-display:block;
-position:relative;
-float:none !important;
-padding:5px;
-}
-
-.dhe-header .btn-group button{
-float:none !important;
-}
-
-}
-
-
-@media only screen and (min-width: 600px) {
-.dhe-header {
-            width: 100%;
-            height: 30px;
-            text-align: left;
-            padding-left: 20px;
-            color: #3F51B5;
-            line-height: 30px;
+            color: #fff;
+            line-height: 60px;
             vertical-align: middle;
-            background-color: whitesmoke;
+            background-color: #3F51B5;
             margin-bottom: 10px;
         }
 .dhe-heading {
+    float:left;
             font-size: 20px;
-            display:inline-block;
-             vertical-align: middle;
+         
+            vertical-align: middle;
+            padding-right:20px;
         }
-.dhe-btns {
-           display:inline-block;
-           vertical-align: middle;
-        }
+
+.dhe-btns-group{
+    display:inline-block;
 }
+
+.dhe-btn{
+    cursor:pointer;
+    float:left;
+    min-width:100px;
+    padding:5px;
+    background: rgba(255,255,255,0);
+    text-align: center;
+    line-height: 50px;
+    border-style:solid;
+     border-width:0 0 0 1px;
+    border-color: rgba(255,255,255,0.2)
+}
+
+.dhe-btn:first-child{
+     border-width:0 0 0 1px;
+}
+
+.dhe-btn:last-child{
+     border-width:0 1px 0 1px;
+}
+
+.dhe-btn.active{
+     background: #009688;
+}
+
+.dhe-btn:hover{
+     background: rgba(255,255,255,0.2);
+}
+
+
 #htmlContent {
             min-width: 100%;
         }

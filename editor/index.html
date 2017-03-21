@@ -28,103 +28,94 @@
 
     <div class="dhe-header">
         <div class="dhe-heading">Blog Editor</div>
-        <div class="btn-toolbar dhe-btns">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" id="createBlogBtn" data-toggle="modal" data-target="#createBlogModal"
-                    data-toggle="tooltip" title="Create or Edit Blog">
-                           <span class="glyphicon glyphicon-play"></span>
-                           Create/Edit Blog
-                      </button>
+        <div class="dhe-btns-group">
+            <div class="dhe-btn" id="createBlogBtn" data-toggle="modal" data-target="#createBlogModal" data-toggle="tooltip" title="Create or Edit Blog">
+                <span class="glyphicon glyphicon-play"></span>&nbsp; Create/Edit Blog
             </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" id="refreshBtn" data-toggle="tooltip" title="Refresh Editor Views">
-                           <span class="glyphicon glyphicon-refresh"></span>
-                      </button>
+            <div  class="dhe-btn" id="refreshBtn" data-toggle="tooltip" title="Refresh Editor Views">
+                <span class="glyphicon glyphicon-refresh"></span>&nbsp; Refresh
             </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" id="richEditorBtn">Rich Editor</button>
-                <button type="button" class="btn btn-primary btn-sm" id="rawHtmlBtn">Raw Html</button>
+            <div class="dhe-btn" id="richEditorBtn">Rich Editor</div>
+            <div class="dhe-btn" id="rawHtmlBtn">Raw Html</div>
+
+            <div  class="dhe-btn" id="previewBtn">
+                <span class="glyphicon glyphicon-new-window"></span>&nbsp; Preview
             </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" id="previewBtn">Preview
-                        <span class="glyphicon glyphicon-new-window"></span> 
-                    </button>
-            </div>
+
+
         </div>
-
-    </div>
-    <div class="container-fluid">
+        <div class="container-fluid">
 
 
 
-        <div class="row">
-            <div class="col-md-6" id="richEditorCol">
-                <form method="post">
-                    <textarea id="tinymceEditor">Tiny mce editor!</textarea>
-                </form>
-            </div>
-            <div class="col-md-6" id="htmlEditorCol">
-                <textarea id="htmlContent"></textarea>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!-- Create Blog Modal -->
-    <div id="createBlogModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Create/Edit an Article</h4>
+            <div class="row">
+                <div class="col-md-6" id="richEditorCol">
+                    <form method="post">
+                        <textarea id="tinymceEditor">Click on Create/Edit blog to select a blog</textarea>
+                    </form>
                 </div>
-                <div class="modal-body">
+                <div class="col-md-6" id="htmlEditorCol">
+                    <textarea id="htmlContent"></textarea>
+                </div>
+            </div>
+        </div>
 
-                    <div class="dhe-modal-input">
-                        <label>Title</label>
-                        <input id="inTitle" type="text" list="blogList" placeholder="Title">
-                        <datalist id="blogList">
 
-                        </datalist>
 
+
+        <!-- Create Blog Modal -->
+        <div id="createBlogModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create/Edit an Article</h4>
                     </div>
+                    <div class="modal-body">
 
-                    <div class="dhe-modal-input">
-                        <label>Description</label>
-                        <input id="inDescription" type="text" placeholder="description"> </div>
-                    <div class="dhe-modal-input">
-                        <label>URL</label>
-                        <input id="inUrl" type="text" placeholder="blog URL"> </div>
-                    <div class="dhe-modal-input">
-                        <label>Tags</label>
-                        <input id="inTags" type="text" placeholder="tags"> </div>
-                    <div class="dhe-modal-input">
-                        <label>Blog Access</label>
-                        <select id="inVisibility">
+                        <div class="dhe-modal-input">
+                            <label>Title</label>
+                            <input id="inTitle" type="text" list="blogList" placeholder="Title">
+                            <datalist id="blogList">
+
+                            </datalist>
+
+                        </div>
+
+                        <div class="dhe-modal-input">
+                            <label>Description</label>
+                            <input id="inDescription" type="text" placeholder="description"> </div>
+                        <div class="dhe-modal-input">
+                            <label>URL</label>
+                            <input id="inUrl" type="text" placeholder="blog URL"> </div>
+                        <div class="dhe-modal-input">
+                            <label>Tags</label>
+                            <input id="inTags" type="text" placeholder="tags"> </div>
+                        <div class="dhe-modal-input">
+                            <label>Blog Access</label>
+                            <select id="inVisibility">
                         <option value="visible">Blog is shown on main page</option>
                         <option value="hidden">Access Direct link</option>
                         <option value="ignore">Not public</option>
                     </select></div>
-                    <div class="dhe-modal-input">
-                        <label>Date</label>
-                        <input id="inDate" type="date" placeholder="Date">
+                        <div class="dhe-modal-input">
+                            <label>Date</label>
+                            <input id="inDate" type="date" placeholder="Date">
+                        </div>
+
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="openBlog">Open Article</button>
+                    </div>
+                </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="openBlog">Open Article</button>
-                </div>
             </div>
-
         </div>
-    </div>
 
-    <script src="./editor.js"></script>
+        <script src="./editor.js"></script>
 </body>
 
 </html>
