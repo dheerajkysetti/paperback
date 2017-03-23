@@ -67,12 +67,20 @@ height:50px;
 
 /*Blog list styling*/
 .dhe-card{
-   max-width: 300px;
+   margin: 0 auto;
+   width: 500px;
    height:200px;
    box-shadow:0 1px 3px 0 rgba(0,0,0,.2),0 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
    padding:8px;
    margin:8px;
    position:relative;
    background-color: whitesmoke;
-
+}
+.dhe-card-thumbnail{
+    display:block;
+    min-height:100px;
+    text-align: center;
+    line-height: 100px;
+    margin:-8px;
+    background-color: white;
 }

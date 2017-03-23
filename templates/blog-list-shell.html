@@ -23,13 +23,17 @@
     </div>
     {{#each posts}}
     <div class="dhe-card">
-        <a href="{{imageUrl}}" class="thumbnail"></a>
-        <h2>{{title}}</h2>
+        <a href="{{imageUrl}}" class="dhe-card-thumbnail">
+            {{#if imageUrl}}
+            <span class="glyphicon glyphicon-pencil" style="font-size:40px"></span>
+            {{/if}}
+        </a>
+        <h3>{{title}}</h3>
         <div>
             {{#each tagsArray}}
             <span class="label label-default">{{tag}}</span> {{/each}}
         </div>
-        <h3>{{description}}</h3>
+        <h4>{{description}}</h4>
 
     </div>
     {{/each}}
