@@ -12,6 +12,7 @@ const BLOG_LIST_SIZE = 10;
 hbs.registerPartial('empty_page', "");
 
 function createIndexHtml() {
+  var blogList = createListPage();
   var indexTemplate = hbs.compile(fs.readFileSync(join(projectRoot, 'templates', 'shell.html'), 'utf-8'));
   var tmpObj = {};
   tmpObj.title = blog.blogTitle;
@@ -20,30 +21,36 @@ function createIndexHtml() {
   tmpObj.author = blog.author;
   tmpObj.pageTitle = blog.blogTitle;
   tmpObj.tags = blog.tags;
-  tmpObj.MAIN_HTML_CONTENT = blog.posts.length == 0 ? '' : fs.readFileSync(join(projectRoot,'public','blog-list-page-1.html'),'utf-8');
+  tmpObj.MAIN_HTML_CONTENT = blog.posts.length == 0 ? '' : blogList[0];
   var templatedString = indexTemplate(tmpObj);
   fs.writeFileSync(join(projectRoot, 'public', 'index.html'), templatedString);
+
 }
 
 function createListPage() {
   var postsInPage = _.chunk(blog.posts, BLOG_LIST_SIZE);
   var compiledHtml = hbs.compile(fs.readFileSync(join(projectRoot, 'templates', 'blog-list-shell.html'), 'utf-8'));
-  var postPages = [], tCtx = [];
+  var postPages = [], tCtx = [], retPages = [];
   postsInPage.forEach(function (page, index) {
     var tObj = {};
-    tObj.hasPrevious = index == 0 || postsInPage.length < 1 ? false : true;
-    tObj.hasNext = index == (postPages.length - 1) || postsInPage.length < 1 ? false : true;
+    tObj.hasPrevious = (postsInPage.length - 1) > index;
+    tObj.hasNext = (postsInPage.length - 1) < index;
     tObj.posts = page;
     tObj.position = index;
+    tObj.displayPagination = (postsInPage.length - 1) > 0;
     tObj.postsPages = postPages;
-    postPages.push({ url: 'blog-list-page-' + (index + 1) + '.html', position: (index + 1) });
+    if (index > 0) {
+      postPages.push({ url: 'blog-list-page-' + (index + 1) + '.html', position: (index + 1) });
+    } else {
+      postPages.push({ url: 'index.html', position: (index + 1) });
+    }
     tCtx.push(tObj);
   });
 
   tCtx.forEach(function (ctx, index) {
-    fs.writeFileSync(join(projectRoot, 'public', 'blog-list-page-' + (index+1) + '.html'), compiledHtml(ctx)); 
+    retPages.push(compiledHtml(ctx));
   });
-
+  return retPages;
 }
 
 function copyArticles() {
